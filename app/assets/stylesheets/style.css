@@ -1,0 +1,8 @@
+body {padding-top:40px;}
+#new-message {width: 100%; resize:none;}
+
+#participants ul li{ list-style-type:none; }
+
+.message .speaker {width:200px; border-right:1px solid #DDD; text-align:right;}
+.message .body {float:left;}
+.message .time {float:right; color:#AAA;}
