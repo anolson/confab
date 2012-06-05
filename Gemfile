@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'ejs'
 gem 'rails', '3.2.5'
 
 # Bundle edge Rails instead:

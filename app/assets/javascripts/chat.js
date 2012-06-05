@@ -33,7 +33,7 @@ $(function(){
     tagName: 'tr',
     model: Message,
     
-    template: _.template($('#message-template').html()),    
+    template: JST["app/views/message"],
     
     initialize: function() {
       this.model.bind('change', this.render, this);
@@ -67,11 +67,27 @@ $(function(){
     sendMessage: function(e) {
       if (!this.input.val()) return;
       
-      Messages.add({text: this.input.val()});
+      Messages.create({ body: this.input.val() });
       this.input.val('');
     }
   });
   
-
   window.App = new AppView;
+
+  Pusher.log = function(message) {
+    if (window.console && window.console.log) window.console.log(message);
+  };
+
+  // Flash fallback logging - don't include this in production
+  WEB_SOCKET_DEBUG = true;
+
+  var pusher = new Pusher('bcac71dd1645cc01110e');
+  pusher.connection.bind('connected', function() {
+    socketId = pusher.connection.socket_id;
+  });
+
+  var channel = pusher.subscribe('messages');
+  channel.bind('new_message', function(data) {
+    Messages.add(data);
+  });
 });
