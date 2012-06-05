@@ -1,13 +1,15 @@
 $(function(){
   
-  var currentUser = "Andrew O."
+  var currentUser = 'Andrew O.'
+  var socketId = ''
   
   var Message = Backbone.Model.extend({
     defaults: function() {
       return {
-        text: "",
+        body: "",
         timestamp: Date.now(), 
         author: currentUser,
+        socket_id: socketId,
         order: Messages.nextOrder(),
       };
     }
