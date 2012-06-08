@@ -4,6 +4,9 @@
   <title>Confab</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "http://js.pusher.com/1.11/pusher.min.js", "application" %>
+  <script type="text/javascript" charset="utf-8">
+    window.currentUser = '<%= current_user.try(:full_name) %>'
+  </script>
   <%= csrf_meta_tags %>
 </head>
 <body>
