@@ -14,8 +14,8 @@
 ActiveRecord::Schema.define(:version => 20120608125722) do
 
   create_table "messages", :force => true do |t|
-    t.string   "author"
     t.string   "body"
+    t.integer  "user_id"
     t.datetime "timestamp"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false

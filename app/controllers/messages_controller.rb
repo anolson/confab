@@ -9,6 +9,6 @@ class MessagesController < ApplicationController
   private
 
   def message_params
-    params.slice(:author, :body, :timestamp)
+    params.slice(:body, :timestamp).merge(:user => current_user)
   end
 end
