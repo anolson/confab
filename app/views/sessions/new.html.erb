@@ -1,11 +1,14 @@
-<div id="login" class="well span4 offset1">
-  <%= form_for @user, :url => session_path do |f| %>
-    <%= f.label :username %>
-    <%= f.text_field :username %>
+<div class="row span4 offset4">
+  <h2>Login</h2>
+  <div id="login" class="well">
+    <%= form_for @user, :url => session_path do |f| %>
+      <%= f.label :username %>
+      <%= f.text_field :username %>
 
-    <%= f.label :password %>
-    <%= f.password_field :password %>
+      <%= f.label :password %>
+      <%= f.password_field :password %>
 
-    <p><%= f.submit "Signin", :class => 'btn btn-primary' %></p>
-  <% end %>
+      <p><%= f.submit "Signin", :class => 'btn btn-primary' %></p>
+    <% end %>
+  </div>  
 </div>

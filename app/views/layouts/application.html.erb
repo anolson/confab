@@ -10,8 +10,9 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <div class="navbar navbar-fixed-top">
+  <div class="navbar navbar-fluid-top">
     <div class="navbar-inner">
+      <%= link_to root_path, :class => "brand" %>
       <div class="container">
         <% if logged_in? %>
           <div class="pull-right">
