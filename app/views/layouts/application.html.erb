@@ -10,8 +10,23 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <% if logged_in? %>
+          <div class="pull-right">
+            <p class="navbar-text">Logged in as <strong class="username"><%= current_user.username %></strong>. <%= link_to "Signout", signout_path %></p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <%= yield %>
+    </div>
+  </div>
 
 </body>
 </html>

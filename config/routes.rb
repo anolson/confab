@@ -1,6 +1,10 @@
 Confab::Application.routes.draw do
   resources :messages, :only => [:index, :create]
 
+  resource :session
+  get 'signin' => 'sessions#new'
+  get 'signout' => 'sessions#destroy'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
