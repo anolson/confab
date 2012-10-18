@@ -10,10 +10,11 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <div class="navbar navbar-fluid-top">
+  <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
-      <%= link_to root_path, :class => "brand" %>
       <div class="container">
+        <%= link_to "Confab", root_path, :class => "brand" %>
+
         <% if logged_in? %>
           <div class="pull-right">
             <p class="navbar-text">Logged in as <strong class="username"><%= current_user.username %></strong>. <%= link_to "Signout", signout_path %></p>
