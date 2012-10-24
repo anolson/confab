@@ -20,3 +20,7 @@ body {padding-top:60px;}
      -moz-transition: all .2s linear;
           transition: all .2s linear;
 }
+
+.text-center {
+  text-align: center;
+}

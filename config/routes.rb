@@ -5,6 +5,9 @@ Confab::Application.routes.draw do
   get 'signin' => 'sessions#new'
   get 'signout' => 'sessions#destroy'
 
+  resources :users, :only => [:new, :create]
+  get 'signup' => 'users#new'
+
   root :to => 'messages#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -10,5 +10,13 @@
 
       <p><%= f.submit "Signin", :class => 'btn btn-primary' %></p>
     <% end %>
-  </div>  
+  </div>
+
+  <% if flash[:alert] %>
+    <div class="alert alert-error"><%= flash[:alert] %></div>
+  <% end %>
+
+  <div class="well text-center">
+    <h4><%= link_to 'Signup for a new account.', signup_path %></h4>
+  </div>
 </div>
