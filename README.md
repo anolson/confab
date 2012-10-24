@@ -34,9 +34,9 @@ Run the tests.
 
 Some ideas of features to add.
 
+- Update Bootstrap/Rails
 - Use Guard for running specs
 - Mock interaction with Pusher
-- User signup
 - Participant list (with presence pushed to the client)
 - Search messages
 - Auto-detect URLs (imgur, youtube etc).
