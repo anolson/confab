@@ -1,11 +1,10 @@
 class SessionsController < ApplicationController
   skip_before_filter :ensure_current_user, :only => [:new, :create]
-  layout 'fixed'
-  
+
   def new
     @user = User.new
   end
-  
+
   def create
     if user = User.authenticate(params[:user])
       session[:current_user] = user.id

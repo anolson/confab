@@ -30,11 +30,11 @@ Run the tests.
 
   $ bundle exec rake spec
 
-=== Ideas
+== Ideas
 
 Some ideas of features to add.
 
-- Update Bootstrap/Rails
+- Update Rails
 - Use Guard for running specs
 - Mock interaction with Pusher
 - Participant list (with presence pushed to the client)

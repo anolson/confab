@@ -1,4 +1,4 @@
-<div class="row span4 offset4">
+<div id="login" class="offset4 span4">
   <h2>Login</h2>
   <div id="login" class="well">
     <%= form_for @user, :url => session_path do |f| %>
@@ -16,7 +16,7 @@
     <div class="alert alert-error"><%= flash[:alert] %></div>
   <% end %>
 
-  <div class="well text-center">
+  <div class="well well-small text-center">
     <h4><%= link_to 'Signup for a new account.', signup_path %></h4>
   </div>
 </div>

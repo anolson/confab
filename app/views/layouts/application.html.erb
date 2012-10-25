@@ -1,34 +1,33 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Confab</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "http://js.pusher.com/1.11/pusher.min.js", "application" %>
-  <script type="text/javascript" charset="utf-8">
-    window.currentUser = '<%= current_user.try(:full_name) %>'
-  </script>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-  <div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-      <div class="container">
-        <%= link_to "Confab", root_path, :class => "brand" %>
+  <head>
+    <title>Confab</title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "http://js.pusher.com/1.11/pusher.min.js", "application" %>
+    <script type="text/javascript" charset="utf-8">
+      window.currentUser = '<%= current_user.try(:full_name) %>'
+    </script>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <%= link_to "Confab", root_path, :class => "brand" %>
 
-        <% if logged_in? %>
-          <div class="pull-right">
-            <p class="navbar-text">Logged in as <strong class="username"><%= current_user.username %></strong>. <%= link_to "Signout", signout_path %></p>
-          </div>
-        <% end %>
+          <% if logged_in? %>
+            <div class="pull-right">
+              <p class="navbar-text">Logged in as <strong class="username"><%= current_user.username %></strong>. <%= link_to "Signout", signout_path %></p>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
-  </div>
-  
-  <div class="container-fluid">
-    <div class="row-fluid">
-      <%= yield %>
-    </div>
-  </div>
 
-</body>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <%= yield %>
+      </div>
+    </div>
+  </body>
 </html>
