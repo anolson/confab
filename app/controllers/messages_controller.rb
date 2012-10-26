@@ -1,6 +1,7 @@
 class MessagesController < ApplicationController
   def index
-    @messages = Message.order(:timestamp).limit(10).map(&:to_json)
+    @messages = Message.order("timestamp DESC").limit(10).map(&:to_json)
+    @participants = User.logged_in.map(&:to_json)
   end
 
   def create
