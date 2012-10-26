@@ -38,6 +38,7 @@ Some ideas of features to add.
 - Use Guard for running specs
 - Mock interaction with Pusher
 - Participant list (with presence pushed to the client)
+- Save timezone info for user
 - Search messages
 - Auto-detect URLs (imgur, youtube etc).
 - Multiple room/conversation support

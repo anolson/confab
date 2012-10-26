@@ -5,7 +5,12 @@
     <%= stylesheet_link_tag    "application", :media => "all" %>
     <%= javascript_include_tag "http://js.pusher.com/1.11/pusher.min.js", "application" %>
     <script type="text/javascript" charset="utf-8">
-      window.currentUser = '<%= current_user.try(:full_name) %>'
+      <% if logged_in? %>
+        $(function(){
+          window.currentUser = '<%= current_user.try(:full_name) %>'
+          Messages.reset(<%= @messages.to_json.html_safe %>);
+        })
+      <% end %>
     </script>
     <%= csrf_meta_tags %>
   </head>
