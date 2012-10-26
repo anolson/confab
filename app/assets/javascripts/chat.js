@@ -2,6 +2,43 @@ $(function(){
 
   var socketId = '';
 
+  var Participant = Backbone.Model.extend({
+    defaults: function() {
+      return {
+        full_name: ""
+      };
+    }
+  });
+
+  var ParticipantList = Backbone.Collection.extend({
+    model: Participant,
+
+    nextOrder: function() {
+      if (!this.length) return 1;
+      return this.last().get('order') + 1;
+    },
+
+    comparator: function(participant) {
+      return participant.get('full_name');
+    }
+  });
+
+  window.Participants = new ParticipantList
+
+  var ParticipantView = Backbone.View.extend({
+    tagName: 'li',
+    model: Participant,
+
+    initialize: function() {
+      this.model.bind('change', this.render, this);
+    },
+
+    render: function() {
+      this.$el.html(this.model.get('full_name'));
+      return this;
+    }
+  });
+
   var Message = Backbone.Model.extend({
     defaults: function() {
       return {
@@ -23,8 +60,8 @@ $(function(){
       return this.last().get('order') + 1;
     },
 
-    comparator: function(todo) {
-      return todo.get('order');
+    comparator: function(message) {
+      return message.get('timestamp');
     }
   });
 
@@ -59,6 +96,9 @@ $(function(){
 
       Messages.bind('add', this.addMessage, this);
       Messages.bind('reset', this.addMessages, this);
+
+      Participants.bind('add', this.addParticipant, this);
+      Participants.bind('reset', this.addParticipants, this);
     },
 
     addMessages: function() {
@@ -68,6 +108,15 @@ $(function(){
     addMessage: function(message) {
       var view = new MessageView({model: message});
       this.$("#messages table").append(view.render().el);
+    },
+
+    addParticipants: function() {
+      Participants.each(this.addParticipant);
+    },
+
+    addParticipant: function(participant) {
+      var view = new ParticipantView({model: participant});
+      this.$("#participants ul").append(view.render().el);
     },
 
     sendMessage: function(e) {
