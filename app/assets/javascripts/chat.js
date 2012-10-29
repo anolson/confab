@@ -4,9 +4,7 @@ $(function(){
 
   var Participant = Backbone.Model.extend({
     defaults: function() {
-      return {
-        full_name: ""
-      };
+      return { full_name: "" };
     }
   });
 
@@ -34,6 +32,7 @@ $(function(){
     },
 
     render: function() {
+      this.$el.attr('id', 'participant_' + this.model.id);
       this.$el.html(this.model.get('full_name'));
       return this;
     }
@@ -98,6 +97,7 @@ $(function(){
       Messages.bind('reset', this.addMessages, this);
 
       Participants.bind('add', this.addParticipant, this);
+      Participants.bind('remove', this.removeParticipant, this);
       Participants.bind('reset', this.addParticipants, this);
     },
 
@@ -107,7 +107,14 @@ $(function(){
 
     addMessage: function(message) {
       var view = new MessageView({model: message});
-      this.$("#messages table").append(view.render().el);
+      $("#messages table").append(view.render().el);
+    },
+
+    sendMessage: function(e) {
+      if (!this.input.val()) return;
+
+      Messages.create({ body: this.input.val() });
+      this.input.val('');
     },
 
     addParticipants: function() {
@@ -116,14 +123,11 @@ $(function(){
 
     addParticipant: function(participant) {
       var view = new ParticipantView({model: participant});
-      this.$("#participants ul").append(view.render().el);
+      $("#participants ul").append(view.render().el);
     },
 
-    sendMessage: function(e) {
-      if (!this.input.val()) return;
-
-      Messages.create({ body: this.input.val() });
-      this.input.val('');
+    removeParticipant: function(participant) {
+      $("#participant_" + participant.id).remove();
     }
   });
 
@@ -141,8 +145,17 @@ $(function(){
     socketId = pusher.connection.socket_id;
   });
 
-  var channel = pusher.subscribe('messages');
-  channel.bind('new_message', function(data) {
+  var message_channel = pusher.subscribe('messages');
+  message_channel.bind('new_message', function(data) {
     Messages.add(data);
+  });
+
+  var participant_channel = pusher.subscribe('participants');
+  participant_channel.bind('login', function(data) {
+    Participants.add(data);
+  });
+
+  participant_channel.bind('logout', function(data) {
+    Participants.remove(data);
   });
 });

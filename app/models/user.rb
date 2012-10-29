@@ -22,13 +22,19 @@ class User < ActiveRecord::Base
   def login!(session)
     update_column(:logged_in, true)
     session[:current_user] = self.id
+    push(:login)
   end
 
   def logout!
     update_column(:logged_in, false)
+    push(:logout)
   end
 
   def to_json
-    { full_name: full_name }
+    { full_name: full_name, id: id }
+  end
+
+  def push(action)
+    Pusher['participants'].trigger(action, to_json)
   end
 end
