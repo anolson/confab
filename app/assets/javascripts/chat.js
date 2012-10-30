@@ -87,11 +87,14 @@ $(function(){
     el: $("#chat"),
 
     events: {
-      "click #send-message": "sendMessage"
+      "click #send-message": "sendMessage",
+      "keyup #new-message": "sendMessageOnEnter"
     },
 
     initialize: function() {
       this.input = this.$("#new-message")
+
+      this.input.focus();
 
       Messages.bind('add', this.addMessage, this);
       Messages.bind('reset', this.addMessages, this);
@@ -110,11 +113,16 @@ $(function(){
       $("#messages table").append(view.render().el);
     },
 
-    sendMessage: function(e) {
+    sendMessage: function() {
       if (!this.input.val()) return;
 
       Messages.create({ body: this.input.val() });
-      this.input.val('');
+      this.input.val("");
+    },
+
+    sendMessageOnEnter: function(e) {
+      if (e.keyCode != 13) return;
+      this.sendMessage();
     },
 
     addParticipants: function() {
