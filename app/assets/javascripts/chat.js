@@ -148,17 +148,16 @@ $(function(){
   // Flash fallback logging - don't include this in production
   WEB_SOCKET_DEBUG = true;
 
-  var pusher = new Pusher('bcac71dd1645cc01110e');
-  pusher.connection.bind('connected', function() {
+  window.pusher.connection.bind('connected', function() {
     socketId = pusher.connection.socket_id;
   });
 
-  var message_channel = pusher.subscribe('messages');
+  var message_channel = window.pusher.subscribe('messages');
   message_channel.bind('new_message', function(data) {
     Messages.add(data);
   });
 
-  var participant_channel = pusher.subscribe('participants');
+  var participant_channel = window.pusher.subscribe('participants');
   participant_channel.bind('login', function(data) {
     Participants.add(data);
   });
