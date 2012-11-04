@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :ensure_current_user
 
+  delegate :logged_in?, :current_user, to: :user_presence
   helper_method :logged_in?, :current_user
 
   private

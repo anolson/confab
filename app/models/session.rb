@@ -1,10 +1,8 @@
 class Session < ActiveRecord::Base
-  include UserPresenceDelagation
+  delegate :current_user, to: :user_presence
 
   def self.all_logged_in_users
-    all.map do |session|
-      session.current_user if session.logged_in?
-    end
+    all.map(&:current_user).reject(&:nil?)
   end
 
   private
