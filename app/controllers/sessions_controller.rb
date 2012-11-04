@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
 
   def create
     if user = User.authenticate(params[:user])
-      user_presence.login! user.id
+      presence.login! user.id
       redirect_to messages_path
     else
       redirect_to signin_path, :alert => "Incorrect username/password."
@@ -16,7 +16,13 @@ class SessionsController < ApplicationController
 
   def destroy
     reset_session
-    user_presence.logout!
+    presence.logout!
     redirect_to signin_path
+  end
+
+  private
+
+  def presence
+    @presence ||= Presence.new(user_session)
   end
 end

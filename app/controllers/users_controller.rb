@@ -8,10 +8,16 @@ class UsersController < ApplicationController
   def create
     @user = User.create(params[:user])
     if @user.valid?
-      session[:current_user] = @user.id
+      presence.login! @user.id
       redirect_to messages_path
     else
       render :new
     end
+  end
+
+  private
+
+  def presence
+    @presence ||= Presence.new(user_session)
   end
 end

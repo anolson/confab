@@ -1,11 +1,14 @@
 class ApplicationController < ActionController::Base
-  include UserPresenceDelagation
-
   protect_from_forgery
   before_filter :ensure_current_user
 
-  delegate :logged_in?, :current_user, to: :user_presence
-  helper_method :logged_in?, :current_user
+  delegate :current_user, to: :user_session
+  helper_method :current_user
+
+  def logged_in?
+    current_user.present?
+  end
+  helper_method :logged_in?
 
   private
 
@@ -13,7 +16,7 @@ class ApplicationController < ActionController::Base
     redirect_to signin_path unless logged_in?
   end
 
-  def user_presence
-    @user_presence ||= UserPresence.new(session)
+  def user_session
+    @user_session ||= UserSession.new(session)
   end
 end
