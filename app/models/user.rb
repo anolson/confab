@@ -9,8 +9,6 @@ class User < ActiveRecord::Base
 
   has_many :messages
 
-  scope :logged_in, where(logged_in: true)
-
   def full_name
     first_name + ' ' + last_name
   end
@@ -19,22 +17,7 @@ class User < ActiveRecord::Base
     User.find_by_username(options[:username]).try(:authenticate, options[:password])
   end
 
-  def login!(session)
-    update_column(:logged_in, true)
-    session[:current_user] = self.id
-    push(:login)
-  end
-
-  def logout!
-    update_column(:logged_in, false)
-    push(:logout)
-  end
-
   def to_json
     { full_name: full_name, id: id }
-  end
-
-  def push(action)
-    Pusher['participants'].trigger(action, to_json)
   end
 end

@@ -1,17 +1,17 @@
 class MessagesController < ApplicationController
   def index
     @messages = Message.order("timestamp DESC").limit(10).map(&:to_json)
-    @participants = User.logged_in.map(&:to_json)
+    @participants = Session.all_logged_in_users.map(&:to_json)
   end
 
   def create
-    Message.create(message_params).push(params[:socket_id])
+    current_user.messages.create(message_params).push(params[:socket_id])
     render nothing: true, :status => :created
   end
 
   private
 
   def message_params
-    params.slice(:body, :timestamp).merge(:user => current_user)
+    params.slice(:body, :timestamp)
   end
 end
