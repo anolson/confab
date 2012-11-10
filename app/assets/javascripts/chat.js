@@ -72,14 +72,51 @@ $(function(){
 
     template: JST["app/views/message"],
 
-    initialize: function() {
-      this.model.bind('change', this.render, this);
-    },
-
     render: function() {
       this.$el.addClass("message");
       this.$el.html(this.template(this.model.toJSON()));
       return this;
+    }
+  });
+
+  var MessageTableView = Backbone.View.extend({
+    el: $("#messages table"),
+
+    initialize: function() {
+      Messages.bind('add', this.addMessage, this);
+      Messages.bind('reset', this.addMessages, this);
+    },
+
+    addMessages: function() {
+      Messages.each(_.bind(this.addMessage, this));
+    },
+
+    addMessage: function(message) {
+      var view = new MessageView({model: message});
+      this.$el.append(view.render().el);
+    }
+  });
+
+  var ParticipantListView = Backbone.View.extend({
+    el: $("#participants ul"),
+
+    initialize: function() {
+      Participants.bind('add', this.addParticipant, this);
+      Participants.bind('remove', this.removeParticipant, this);
+      Participants.bind('reset', this.addParticipants, this);
+    },
+
+    addParticipants: function() {
+      Participants.each(_.bind(this.addParticipant, this));
+    },
+
+    addParticipant: function(participant) {
+      var view = new ParticipantView({model: participant});
+      this.$el.append(view.render().el);
+    },
+
+    removeParticipant: function(participant) {
+      this.$("#participant_" + participant.id).remove();
     }
   });
 
@@ -92,25 +129,11 @@ $(function(){
     },
 
     initialize: function() {
-      this.input = this.$("#new-message")
-
+      this.input = this.$("#new-message");
       this.input.focus();
 
-      Messages.bind('add', this.addMessage, this);
-      Messages.bind('reset', this.addMessages, this);
-
-      Participants.bind('add', this.addParticipant, this);
-      Participants.bind('remove', this.removeParticipant, this);
-      Participants.bind('reset', this.addParticipants, this);
-    },
-
-    addMessages: function() {
-      Messages.each(this.addMessage);
-    },
-
-    addMessage: function(message) {
-      var view = new MessageView({model: message});
-      $("#messages table").append(view.render().el);
+      this.messageTableView = new MessageTableView();
+      this.participantListView = new ParticipantListView();
     },
 
     sendMessage: function() {
@@ -123,30 +146,10 @@ $(function(){
     sendMessageOnEnter: function(e) {
       if (e.keyCode != 13) return;
       this.sendMessage();
-    },
-
-    addParticipants: function() {
-      Participants.each(this.addParticipant);
-    },
-
-    addParticipant: function(participant) {
-      var view = new ParticipantView({model: participant});
-      $("#participants ul").append(view.render().el);
-    },
-
-    removeParticipant: function(participant) {
-      $("#participant_" + participant.id).remove();
     }
   });
 
   window.App = new AppView;
-
-  Pusher.log = function(message) {
-    if (window.console && window.console.log) window.console.log(message);
-  };
-
-  // Flash fallback logging - don't include this in production
-  WEB_SOCKET_DEBUG = true;
 
   window.pusher.connection.bind('connected', function() {
     socketId = pusher.connection.socket_id;
