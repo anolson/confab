@@ -11,11 +11,6 @@ $(function(){
   var ParticipantList = Backbone.Collection.extend({
     model: Participant,
 
-    nextOrder: function() {
-      if (!this.length) return 1;
-      return this.last().get('order') + 1;
-    },
-
     comparator: function(participant) {
       return participant.get('full_name');
     }
@@ -44,8 +39,7 @@ $(function(){
         body: "",
         timestamp: Date.now(),
         author: window.currentUser,
-        socket_id: socketId,
-        order: Messages.nextOrder(),
+        socket_id: socketId
       };
     }
   });
@@ -53,11 +47,6 @@ $(function(){
   var MessageList = Backbone.Collection.extend({
     model: Message,
     url: '/messages',
-
-    nextOrder: function() {
-      if (!this.length) return 1;
-      return this.last().get('order') + 1;
-    },
 
     comparator: function(message) {
       return message.get('timestamp');
