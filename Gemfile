@@ -4,7 +4,7 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'ejs'
 gem 'jquery-rails'
 gem 'pusher'
-gem 'rails', '3.2.5'
+gem 'rails', '3.2.11'
 
 group :development do
   gem 'sqlite3'
