@@ -1,0 +1,27 @@
+$(function(){
+  Pusher.log = function(message) {
+    if (window.console && window.console.log) window.console.log(message);
+  };
+
+  // Flash fallback logging - don't include this in production
+  WEB_SOCKET_DEBUG = true;
+
+  window.pusher = new Pusher("<%= Pusher.key %>")
+  window.pusher.connection.bind('connected', function() {
+    Confab.socketId = pusher.connection.socket_id;
+  });
+
+  var messageChannel = window.pusher.subscribe('messages');
+  messageChannel.bind('new_message', function(data) {
+    messages.add(data);
+  });
+
+  var participantChannel = window.pusher.subscribe('participants');
+  participantChannel.bind('login', function(data) {
+    participants.add(data);
+  });
+
+  participantChannel.bind('logout', function(data) {
+    participants.remove(data);
+  });
+})

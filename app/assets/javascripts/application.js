@@ -2,7 +2,7 @@
 //= require jquery_ujs
 //= require underscore
 //= require backbone
-//= require pusher_bootstrap
+//= require pusher
 //= require moment.min
 
 //= require_self
