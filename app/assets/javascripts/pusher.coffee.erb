@@ -1,0 +1,21 @@
+$ ->
+  Pusher.log = (message) ->
+    window.console.log(message) if window.console && window.console.log
+
+  # Flash fallback logging - don't include this in production
+  WEB_SOCKET_DEBUG = true;
+
+  window.pusher = new Pusher "<%= Pusher.key %>"
+  window.pusher.connection.bind 'connected', ->
+    Confab.socketId = pusher.connection.socket_id
+
+  messageChannel = window.pusher.subscribe 'messages'
+  messageChannel.bind 'new_message', (data) ->
+    messages.add data
+
+  participantChannel = window.pusher.subscribe('participants');
+  participantChannel.bind 'login', (data) ->
+    participants.add data
+
+  participantChannel.bind 'logout', (data) ->
+    participants.remove data

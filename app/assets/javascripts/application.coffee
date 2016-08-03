@@ -21,9 +21,8 @@
 //= require app/views/participant_list
 //= require app/views/app
 
-//= require chat
+//= require init
 
-window.Confab = {
-  socketId: "",
+window.Confab =
+  socketId: ""
   currentUser: ""
-}
