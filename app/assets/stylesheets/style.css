@@ -1,6 +1,11 @@
 body {padding-top:60px;}
 #login form, #signup form { margin-bottom: 0; }
-#new-message {width: 100%; resize:none;}
+#new-message {
+  padding: 10px;
+  width: 100%;
+  resize:none;
+  outline: none;
+}
 
 #participants ul li{ list-style-type:none; }
 
