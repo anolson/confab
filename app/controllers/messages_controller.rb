@@ -12,6 +12,6 @@ class MessagesController < ApplicationController
   private
 
   def message_params
-    params.slice(:body, :timestamp)
+    params[:message]
   end
 end
