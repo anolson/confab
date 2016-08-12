@@ -7,9 +7,9 @@
     <script type="text/javascript" charset="utf-8">
       <% if logged_in? %>
         $(function(){
-          window.currentUser = '<%= current_user.try(:full_name) %>'
-          Messages.reset(<%= @messages.to_json.html_safe %>);
-          Participants.reset(<%= @participants.to_json.html_safe %>);
+          Confab.currentUser = '<%= current_user.try(:full_name) %>'
+          messages.reset(<%= @messages.to_json.html_safe %>);
+          participants.reset(<%= @participants.to_json.html_safe %>);
         })
       <% end %>
     </script>
