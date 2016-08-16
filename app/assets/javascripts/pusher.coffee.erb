@@ -1,7 +1,7 @@
 $ ->
-  debug = <% Rails.env.development? %>
+  debug = <%= Rails.env.development? %>
 
-  if debug?
+  if debug
     Pusher.log = (message) ->
       window.console.log(message) if window.console && window.console.log
 
