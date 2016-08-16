@@ -5,7 +5,7 @@ class MessagesController < ApplicationController
   end
 
   def create
-    current_user.messages.create(message_params).push(params[:socket_id])
+    current_user.messages.create(message_params).reload.push(params[:socket_id])
     render nothing: true, :status => :created
   end
 
