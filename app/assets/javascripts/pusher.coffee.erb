@@ -1,9 +1,12 @@
 $ ->
-  Pusher.log = (message) ->
-    window.console.log(message) if window.console && window.console.log
+  debug = <% Rails.env.development? %>
 
-  # Flash fallback logging - don't include this in production
-  WEB_SOCKET_DEBUG = true;
+  if debug?
+    Pusher.log = (message) ->
+      window.console.log(message) if window.console && window.console.log
+
+    # Flash fallback logging - don't include this in production
+    WEB_SOCKET_DEBUG = true;
 
   window.pusher = new Pusher "<%= Pusher.key %>"
   window.pusher.connection.bind 'connected', ->
