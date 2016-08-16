@@ -8,7 +8,12 @@ $ ->
     # Flash fallback logging - don't include this in production
     WEB_SOCKET_DEBUG = true;
 
-  window.pusher = new Pusher "<%= Pusher.key %>"
+  window.pusher =
+    <% if Rails.env.test? %>
+      <%= PusherFake.javascript %>
+    <% else %>
+      new Pusher "<%= Pusher.key %>"
+    <% end %>
   window.pusher.connection.bind 'connected', ->
     Confab.socketId = pusher.connection.socket_id
 
