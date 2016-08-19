@@ -28,4 +28,6 @@ group :development, :test do
   gem 'poltergeist', '~> 1.10'
   gem 'pusher-fake', '~> 1.6'
   gem 'rspec-rails', '~> 3.5'
+  gem 'spring', '~> 1.7', '>= 1.7.2'
+  gem "spring-commands-rspec", "~> 1.0.4"
 end
