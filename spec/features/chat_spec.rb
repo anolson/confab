@@ -9,8 +9,8 @@ describe 'chat messaging', type: :feature, js: true do
       fill_in 'new-message', :with => "Good Morning!!"
       trigger_keypress
 
-      page.should have_selector("table tr td.speaker strong", :text => "Tom Boonen")
-      page.should have_selector("table tr td .body", :text => "Good Morning!")
+      expect(page).to have_selector("table tr td.speaker strong", :text => "Tom Boonen")
+      expect(page).to have_selector("table tr td .body", :text => "Good Morning!")
     end
 
     it 'displays messages to other users' do
@@ -29,8 +29,8 @@ describe 'chat messaging', type: :feature, js: true do
       using_session :boonen do
         reload_page
 
-        page.should have_selector("table tr td.speaker strong", :text => "Fabian Cancellara")
-        page.should have_selector("table tr td .body", :text => "Good Morning!")
+        expect(page).to have_selector("table tr td.speaker strong", :text => "Fabian Cancellara")
+        expect(page).to have_selector("table tr td .body", :text => "Good Morning!")
       end
     end
   end

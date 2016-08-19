@@ -6,6 +6,6 @@ describe "user signin" do
 
     signin_user(user)
 
-    page.should have_selector(".username", :text => user.username)
+    expect(page).to have_selector(".username", :text => user.username)
   end
 end
