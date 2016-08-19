@@ -9,7 +9,7 @@ describe User do
       authentic_user = User.authenticate username: 'boonen', password: 'secret'
 
       expect(authentic_user).to_not be_nil
-      expect(authentic_user.username).to eq('boonen')
+      expect(authentic_user.username).to eq(user.username)
     end
 
     it "returns false upon failure" do
