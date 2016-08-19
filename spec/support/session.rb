@@ -12,3 +12,7 @@ module Support
     end
   end
 end
+
+RSpec.configure do |config|
+  config.include Support::Session
+end
