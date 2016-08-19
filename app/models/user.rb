@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   has_many :messages
 
   def full_name
-    first_name + ' ' + last_name
+    "#{first_name} #{last_name}"
   end
 
   def self.authenticate(options = {})
