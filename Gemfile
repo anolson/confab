@@ -22,10 +22,10 @@ group :assets do
 end
 
 group :development, :test do
-  gem 'pusher-fake', '~> 1.6'
   gem 'capybara', '~> 2.7'
-  gem 'poltergeist', '~> 1.10'
-  gem 'database_cleaner'
+  gem 'database_cleaner', '~> 1.5'
   gem 'factory_girl_rails', '~> 4.7'
+  gem 'poltergeist', '~> 1.10'
+  gem 'pusher-fake', '~> 1.6'
   gem 'rspec-rails', '~> 3.5'
 end
