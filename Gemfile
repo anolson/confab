@@ -26,6 +26,6 @@ group :development, :test do
   gem 'capybara', '~> 2.7'
   gem 'poltergeist', '~> 1.10'
   gem 'database_cleaner'
-  gem 'factory_girl_rails'
-  gem 'rspec-rails'
+  gem 'factory_girl_rails', '~> 4.7'
+  gem 'rspec-rails', '~> 3.5'
 end
